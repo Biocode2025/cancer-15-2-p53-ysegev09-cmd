@@ -83,5 +83,7 @@ while gan<=5:
 protin=RNA_prot(seq) 
 protin_mata=RNA_prot(mata)
 ASVAHA=SHORTEN(protin,protin_mata)
+print("original: ",protin )
+print("mutation: ",protin_mata )
 print("The difference is:   ",ASVAHA)
 
