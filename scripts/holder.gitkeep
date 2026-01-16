@@ -1,0 +1,87 @@
+import random
+def  SHORTEN(old,new):
+  difranz=len(old)-len(new)
+  
+    
+  return difranz
+    
+    
+def DNA_RNA_Cod(line) : # התרגום לRNAוהגדלה
+  big_leter=line.upper()
+  hachlafa=big_leter.replace("T","U")
+  return(hachlafa)
+
+def Read_dict() :
+  global RNA_codon_table
+  
+  RNA_codon_table={}
+  milon = open('codon_AA.txt', 'r')
+  for line in (milon):
+    line = line.rstrip("\r\n")
+    num=line[0:3]
+    RNA_codon_table[num] = line[-1] 
+
+def RNA_prot (seq):
+  pro=""
+  t=3
+  i=0
+  while t <= len(seq):
+    if pro[-1]!="*":
+      print(pro[-1])
+      sd=seq[i:t]
+      pro=pro+RNA_codon_table.get(sd,"not found")
+      i = i + 3
+      t = t + 3
+    
+  
+  return pro
+
+
+def Mutate_DNA(seq):
+  list=["A", "C", "G", "U"]
+  num=len(seq)
+  
+  m=random.randrange(0,num)
+  n=random.choice(list)
+  seq=seq[0:m]+n+seq[(m+1):]
+  return(seq)
+
+def  Delete_DNA(seq):
+  num=len(seq)
+  m=random.randrange(0,num)
+  seq=seq[0:m]+seq[(m+1):]
+  return(seq)
+
+def Insert_DNA(seq):
+  list=["A", "C", "G", "U"]
+  num=len(seq)
+  
+  m=random.randrange(0,5)
+  n=random.choice(list)
+  seq=seq[0:m+1]+n+seq[(m+1):]
+  return(seq)
+
+seq=""  
+file = open('pck_coli.txt', 'r')
+make_mil=Read_dict()
+for line in(file):
+  if line[0]!=">":
+    line = line.rstrip("\r\n")
+    call3=DNA_RNA_Cod(line)
+    seq=seq+call3
+gan=0
+while gan<=5:
+  ran_mata=random.randrange(1,4)
+  if ran_mata==1:
+    mata=Delete_DNA(seq)
+  elif ran_mata==2:
+     mata=Insert_DNA(seq)
+  else:
+     mata=Mutate_DNA(seq)
+  gan=gan+1
+
+protin=RNA_prot(seq) 
+protin_mata=RNA_prot(mata)
+ASVAHA=SHORTEN(protin,protin_mata)
+print("The difference is:   ",ASVAHA)
+
