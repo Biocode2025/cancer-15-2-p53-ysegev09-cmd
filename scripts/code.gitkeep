@@ -26,13 +26,13 @@ def RNA_prot (seq):
   t=3
   i=0
   while t <= len(seq):
-    if pro[-1]!="*":
-      print(pro[-1])
-      sd=seq[i:t]
-      pro=pro+RNA_codon_table.get(sd,"not found")
-      i = i + 3
-      t = t + 3
-    
+      
+    sd=seq[i:t]
+    pro=pro+RNA_codon_table.get(sd,"not found")
+    i = i + 3
+    t = t + 3
+    if pro[-1]=="*":
+      break
   
   return pro
 
@@ -62,7 +62,7 @@ def Insert_DNA(seq):
   return(seq)
 
 seq=""  
-file = open('data\pck_coli.txt', 'r')
+file = open('data/pck_coli.txt', 'r')
 make_mil=Read_dict()
 for line in(file):
   if line[0]!=">":
@@ -83,8 +83,14 @@ while gan<=5:
 protin=RNA_prot(seq) 
 protin_mata=RNA_prot(mata)
 ASVAHA=SHORTEN(protin,protin_mata)
-print("original: ",protin )
-print("mutation: ",protin_mata )
-print("The difference is:   ",ASVAHA)
+file_a=open('results/mutated_p53.fasta', 'w')
+file_a.write("original: "+protin+"\n" )
+file_a.write("mutation: "+protin_mata +"\n" )
+file_a.write("The difference is:   "+ str(ASVAHA) +"\n")
+file_a.write("לפי התוצעות לרוב מסקנתי היא שלאחר המוטציה גרמה להתקצרות החלבון")
+file_a.close()
+file_a=open('results/mutated_p53.fasta', 'r')
 
+for line in (file_a):
+  print(line)
   
