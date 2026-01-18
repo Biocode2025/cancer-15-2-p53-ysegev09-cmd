@@ -15,7 +15,7 @@ def Read_dict() :
   global RNA_codon_table
   
   RNA_codon_table={}
-  milon = open('codon_AA.txt', 'r')
+  milon = open('data/codon_AA.txt', 'r')
   for line in (milon):
     line = line.rstrip("\r\n")
     num=line[0:3]
@@ -62,7 +62,7 @@ def Insert_DNA(seq):
   return(seq)
 
 seq=""  
-file = open('pck_coli.txt', 'r')
+file = open('data\pck_coli.txt', 'r')
 make_mil=Read_dict()
 for line in(file):
   if line[0]!=">":
@@ -87,3 +87,4 @@ print("original: ",protin )
 print("mutation: ",protin_mata )
 print("The difference is:   ",ASVAHA)
 
+  
